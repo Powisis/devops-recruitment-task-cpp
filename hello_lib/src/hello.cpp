@@ -3,7 +3,7 @@
 namespace hello {
 
     std::string_view get_hello() noexcept {
-        return "Hello World!";
+        return "Hello, World!";
     }
 
 }// namespace hello
