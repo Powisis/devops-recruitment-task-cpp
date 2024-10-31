@@ -43,7 +43,13 @@ jobs:
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
+      - name: set lower case owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
+
       - name: Build and push Docker image
         run: |
-          docker build -t ghcr.io/powisis/devops-recruitment-task-cpp/hello_main:${{ github.ref_name }} .
-          docker push ghcr.io/powisis/devops-recruitment-task-cpp/hello_main:${{ github.ref_name }}
+          docker build -t ghcr.io/${{ github.repository }}/hello_main:${{ github.ref_name }} .
+          docker push ghcr.io/${{ github.repository }}/hello_main:${{ github.ref_name }}
