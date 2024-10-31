@@ -29,6 +29,11 @@ jobs:
             (cd build_dir && ctest .)
           fi
 
+      - name: Display test log
+        if: failure()
+        run: cat build_dir/Testing/Temporary/LastTest.log
+        
+
   push-docker-image:
     needs: build
     if: startsWith(github.ref, 'refs/tags/')
